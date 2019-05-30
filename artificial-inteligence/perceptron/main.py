@@ -1,5 +1,6 @@
 from votes_dataset import HouseVotes_DataSet
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 import numpy as np
 
 # open and preprocess house-votes dataset
@@ -11,7 +12,7 @@ class Perceptron:
     self.threshold = None
 
   def model (self, xs):
-    return 1 if (np.dot(self.weights, x) >= self.threshold) else 0
+    return 1 if (np.dot(self.weights, xs) >= self.threshold) else 0
 
   def predict (self, xs):
     y = [self.model(x) for x in xs]
@@ -53,4 +54,5 @@ class Perceptron:
 x_train, x_test, y_train, y_test = train_test_split(xs, ys, test_size = 0.1, stratify = ys, random_state = 1)
 
 perceptron = Perceptron()
+perceptron.fit(x_train, y_train, 10000, .3)
 # mat = perceptron.predict(xs)
