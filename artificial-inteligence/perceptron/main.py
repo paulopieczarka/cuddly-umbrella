@@ -1,6 +1,7 @@
 from votes_dataset import HouseVotes_DataSet
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 import numpy as np
 
 # open and preprocess house-votes dataset
@@ -18,13 +19,15 @@ class Perceptron:
     y = [self.model(x) for x in xs]
     return np.array(y)
 
-  def fit (self, xs, ys, epochs = 1, lr = 1):
+  def train (self, xs, ys, epochs = 1, lr = 1):
     self.weights = np.ones(xs.shape[1])
     self.threshold = 0
 
     accuracy = {}
     max_accuracy = 0
     wt_matrix = []
+
+    print("-> Training perceptron...")
 
     # for all epochs
     for i in range(epochs):
@@ -48,11 +51,20 @@ class Perceptron:
     self.weights = chkptw
     self.threshold = chkptb
 
-    print(max_accuracy)
+    print("-> Done. Max accuracy = %s" %max_accuracy)
+
+    #plot the accuracy values over epochs
+    plt.plot(np.array(list(accuracy.values())))
+    plt.xlabel("Epoch #")
+    plt.ylabel("Accuracy")
+    plt.ylim([0, 1])
+    plt.show()
 
 # train test split
 x_train, x_test, y_train, y_test = train_test_split(xs, ys, test_size = 0.1, stratify = ys, random_state = 1)
 
 perceptron = Perceptron()
-perceptron.fit(x_train, y_train, 10000, .3)
-# mat = perceptron.predict(xs)
+perceptron.train(x_train, y_train, 10000, .3)
+
+y_pred_test = perceptron.predict(x_test)
+print("-> Model accuracy = %s" % accuracy_score(y_pred_test, y_test))
