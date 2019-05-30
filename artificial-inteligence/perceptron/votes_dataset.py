@@ -3,6 +3,8 @@ import statistics as stcs
 
 
 def HouseVotes_DataSet(filename='house-votes-84.csv'):
+  print("-> Loading %s dataset file." % filename)
+
   # read database
   dataset = pd.read_csv(filename)
 
@@ -10,8 +12,9 @@ def HouseVotes_DataSet(filename='house-votes-84.csv'):
   y = dataset.iloc[:, 0].values
 
   n_samples, n_instances = x.shape
-  print(n_samples, "x", n_instances)
+  print("-> Done. Shape =", n_samples, "x", n_instances)
 
+  print("-> Preprocessing dataset...")
   # replace class name with ints
   # democrat = 0, republican = 1
   for i in range(n_samples):
@@ -47,4 +50,5 @@ def HouseVotes_DataSet(filename='house-votes-84.csv'):
         x[i][j] = medians[j]
   x = x.astype(int)
 
+  print("-> Done.")
   return (x, y, dataset)
