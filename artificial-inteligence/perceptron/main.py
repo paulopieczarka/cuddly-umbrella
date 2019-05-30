@@ -18,9 +18,14 @@ def run_perceptron_test ():
   print("-> Model accuracy = %s" % accuracy_score(y_pred_test, y_test))
 
 def run_pocket_perceptron_test ():
+  print("\n-> POCKET AND RATCHET PERCEPTRON!!")
   perceptron = PerceptronPocketRatchet()
   perceptron.train(x_train, y_train, 10000)
 
+  y_pred_test = perceptron.classify(x_test)
+  y_test[y_test == 0] = -1
+  print("-> Model accuracy = %s" % accuracy_score(y_pred_test, y_test))
+
 # test
-# run_perceptron_test()
+run_perceptron_test()
 run_pocket_perceptron_test()

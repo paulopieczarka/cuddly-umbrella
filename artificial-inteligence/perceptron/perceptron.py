@@ -90,10 +90,10 @@ class PerceptronPocketRatchet:
     pocket_run_ok = 0
     pocket_num_ok = 0
 
+    print("-> Start pocket and ratchet training...")
+
     prediction = self.classify(xs)
     misclassified = [i for i in range(xs.shape[0]) if ys[i] != prediction[i]]
-
-    print("-> Start::Misses = %s" % len(misclassified))
 
     while iterations < epochs:
       # stops when there's no misses
@@ -119,4 +119,5 @@ class PerceptronPocketRatchet:
       prediction = self.classify(xs)
       misclassified = [i for i in range(xs.shape[0]) if ys[i] != prediction[i]]
 
-    print("-> End::Misses = %s" % len(misclassified))
+    accuracy = accuracy_score(prediction, ys)
+    print("-> Done. Max accuracy = %s" % accuracy)
