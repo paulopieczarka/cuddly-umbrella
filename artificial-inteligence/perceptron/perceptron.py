@@ -119,5 +119,11 @@ class PerceptronPocketRatchet:
       prediction = self.classify(xs)
       misclassified = [i for i in range(xs.shape[0]) if ys[i] != prediction[i]]
 
+    # update weights with pocket_weights
+    self.weights = pocket_weigths
+
+    prediction = self.classify(xs)
+    misclassified = [i for i in range(xs.shape[0]) if ys[i] != prediction[i]]
+
     accuracy = accuracy_score(prediction, ys)
     print("-> Done. Max accuracy = %s" % accuracy)
